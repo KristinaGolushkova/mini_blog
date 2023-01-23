@@ -1,0 +1,90 @@
+{% load static %}
+<html >
+<head>
+	<title>Сайт отзывов</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+
+	<link rel="shortcut icon" href="css/images/favicon.ico" />
+
+</head>
+<body>
+<div class="shell">
+	<div class="border">
+
+		<div id="navigation">
+			<ul>
+			    <li><a href="/" class="active">Сайт ваших отзывов</a></li>
+			    <li><a href="/admin">Админ панель</a></li>
+
+			</ul>
+		</div>
+
+		<div id="main">
+			<div id="content" class="left">
+				<img src="{{ ad.img.url }}" width="50%"/>
+				<div class="projects">
+					<h3>{{ ad.title }}</h3>
+					<p align="center"></p>
+					<div class="item">
+						<div class="text left">
+							<h1><a href="{{ ad.id }}">{{ ad.rubric }}</a></h1>
+							<h2><{{ ad.title }}</h2>
+							<p>{{ ad.content}}</p>
+							<p>{{ ad.author}}</p>
+						</div>
+						<div class="cl">&nbsp;</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<br>
+				<p>Если вам также понравился товар, то не забудь поставить лайк.
+				<br>Понравилось: {{ ad.likes_set.all.count }}</p>
+				<br>
+				<a href="{% url 'add_likes' ad.id %}">Нравится</a>
+				<a href="{% url 'del_likes' ad.id %}">Не нравится</a>
+			</div>
+			<div class="form-comment">
+				<h3>Оставьте ваш комментарий</h3>
+				<div>
+					<form action="{% url 'add_comments' ad.id %}" method="post">
+						{% csrf_token %}
+					<div>
+						<label>"Ваш комментарий"</label>
+						<textarea name="text_comments"></textarea>
+					</div>
+						<div>
+							<label>Ваше имя *</label>
+							<input type="text" name="name">
+						</div>
+						<div>
+							<label>Ваш Email *</label>
+							<input type="email" name="email">
+						</div>
+						<div><input type="submit"></div>
+						</form>
+				</div>
+			</div>
+			<div>
+				{% for comment in ad.comments_set.all %}
+				<div class="view-comment">
+					<h4>{{ comment.name }}</h4>
+					<p>
+						{{ comment.text_comments }}
+					</p>
+				</div>
+				{% endfor %}
+			</div>
+
+			<div class="cl">&nbsp;</div>
+		</div>
+
+	</div>
+
+	<div id="footer">
+		<p class="copy right">Copyright &copy;  2022 </p>
+	</div>
+</div>
+</body>
+</html>

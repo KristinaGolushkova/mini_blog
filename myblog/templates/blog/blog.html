@@ -1,0 +1,56 @@
+{% load static %}
+<html >
+<head>
+	<title>Сайт отзывов</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" media="all" />
+
+	<link rel="shortcut icon" href="css/images/favicon.ico" />
+
+</head>
+<body>
+<div class="shell">
+	<div class="border">
+
+		<div id="navigation">
+			<ul>
+			    <li><a href="/" class="active">Сайт ваших отзывов</a></li>
+			    <li><a href="/admin">Админ панель</a></li>
+			    
+			</ul>
+		</div>
+
+		<div id="main">
+			<div id="content" class="left">
+
+				<div class="projects">
+					<h3>Отзывы</h3>
+					{% for ad in post_list %}
+					<div class="item">
+						<div class="image left">
+							<a href="#"><img src="{{ ad.img.url }}" width="200px" /></a>
+						</div>
+						<div class="text left">
+							<h1>{{ ad.rubric }}</h1>
+							<h4><a href="{{ad.id }}">{{ ad.title }}</a></h4>
+							<p>{{ ad.content}}</p>
+							<p>{{ ad.author}}</p>
+						</div>
+						<div class="cl">&nbsp;</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			
+			<div class="cl">&nbsp;</div>
+		</div>
+		
+
+	</div>
+	
+	<div id="footer">
+		<p class="copy right">Copyright &copy;  2022 </p>
+	</div>
+</div>
+</body>
+</html>
